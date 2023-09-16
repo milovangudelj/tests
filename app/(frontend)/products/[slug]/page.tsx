@@ -1,11 +1,15 @@
 import { notFound } from 'next/navigation'
+
 import products from '~/data/products.json'
 
-const getProduct = async (slug: string) => {
-  return products.find((product) => product.slug === slug)
+const getProduct = async (slug: string) =>
+  products.find((product) => product.slug === slug)
+
+export async function generateStaticParams() {
+  return products.map(({ slug }) => ({ slug }))
 }
 
-export default async function DashboardSubRoute({
+export default async function ProductPage({
   params: { slug },
 }: {
   params: { slug: string }
@@ -13,7 +17,6 @@ export default async function DashboardSubRoute({
   const product = await getProduct(slug)
 
   if (!product) {
-    console.log('product not found')
     notFound()
   }
 

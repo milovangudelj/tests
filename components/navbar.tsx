@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const links = [
   { _id: 'li_01', name: 'Products', href: '/products' },
-  { _id: 'li_02', name: 'Login', href: '/login?test=thisisatest' },
+  { _id: 'li_02', name: 'Dashboard', href: '/dashboard' },
 ]
 
 export const Navbar = () => {
