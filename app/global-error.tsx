@@ -1,8 +1,9 @@
+'use client'
+
 import localFont from 'next/font/local'
+import { ErrorBoundary, Outline } from '~/components'
 
 import '~/styles/globals.css'
-import { Navbar, Outline } from '~/components'
-import { Metadata } from 'next'
 
 const inter = localFont({
   src: '../public/fonts/Inter-Variable.ttf',
@@ -10,23 +11,20 @@ const inter = localFont({
   variable: '--font-inter',
 })
 
-export const metadata: Metadata = {
-  title: 'Test',
-  description: 'Testing error boundaries and 404 pages',
-}
-
-export default async function RootLayout({
-  children,
+export default function GlobalError({
+  error,
+  reset,
 }: {
-  children: React.ReactNode
+  error: Error & { digest?: string }
+  reset: () => void
 }) {
   return (
     <html lang="en">
       <body
         className={`${inter.variable} text-white bg-black min-h-screen flex flex-col p-4 pt-0`}
       >
-        <Outline type="layout" title="app/layout.tsx">
-          {children}
+        <Outline type="error" title="app/global-error.tsx">
+          <ErrorBoundary error={error} reset={reset} />
         </Outline>
       </body>
     </html>

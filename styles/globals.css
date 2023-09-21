@@ -1,3 +1,10 @@
 @tailwind base;
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;

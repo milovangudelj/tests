@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { ErrorTrigger, Outline } from '~/components'
 
 import products from '~/data/products.json'
 
@@ -9,9 +10,11 @@ export async function generateStaticParams() {
   return products.map(({ slug }) => ({ slug }))
 }
 
-export default async function ProductPage({
+export default async function ProductLayout({
+  children,
   params: { slug },
 }: {
+  children: React.ReactNode
   params: { slug: string }
 }) {
   const product = await getProduct(slug)
@@ -21,8 +24,9 @@ export default async function ProductPage({
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold text-center">{product.title}</h1>
-    </main>
+    <Outline type="layout" title="app/(marketing)/products/[slug]/layout.tsx">
+      <h1 className="text-4xl font-bold">{product.title}</h1>
+      {children}
+    </Outline>
   )
 }
