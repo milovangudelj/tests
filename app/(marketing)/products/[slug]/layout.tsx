@@ -12,11 +12,12 @@ export async function generateStaticParams() {
 
 export default async function ProductLayout({
   children,
-  params: { slug },
+  params,
 }: {
   children: React.ReactNode
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
+  const { slug } = await params
   const product = await getProduct(slug)
 
   if (!product) {
